@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1320" viewBox="0 0 1600 1320" role="img" aria-labelledby="title desc">
+  <title id="title">minimap2 workflow in this repository</title>
+  <desc id="desc">Workflow diagram of minimap2 modules and critical parameters, including indexing, mapping, chaining, alignment, IS-aware rescue, pairing, and output.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f7f8fb; }
+      .box { fill: #ffffff; stroke: #24364b; stroke-width: 2; rx: 8; }
+      .decision { fill: #fff7e8; stroke: #7b4c00; stroke-width: 2; }
+      .module { font: 700 20px Arial, Helvetica, sans-serif; fill: #172234; }
+      .text { font: 15px Arial, Helvetica, sans-serif; fill: #253246; }
+      .small { font: 13px Arial, Helvetica, sans-serif; fill: #41516a; }
+      .edge { stroke: #31445f; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .edge2 { stroke: #68788f; stroke-width: 2; fill: none; stroke-dasharray: 7 5; marker-end: url(#arrow2); }
+      .label { font: 13px Arial, Helvetica, sans-serif; fill: #3a475c; }
+      .band { fill: #e8eef6; stroke: #a9b7ca; stroke-width: 1.5; rx: 10; }
+      .bandText { font: 700 16px Arial, Helvetica, sans-serif; fill: #31445f; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#31445f"/>
+    </marker>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#68788f"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1600" height="1320"/>
+  <text x="800" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#172234">minimap2 Workflow in This Repository</text>
+  <text x="800" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#526176">Core minimap2 path plus local IS-aware rescue additions</text>
+
+  <rect class="band" x="50" y="108" width="1500" height="230"/>
+  <text class="bandText" x="70" y="134">Setup and Index</text>
+
+  <rect class="box" x="85" y="160" width="315" height="130"/>
+  <text class="module" x="105" y="190">main.c</text>
+  <text class="text" x="105" y="218">Parse CLI and presets</text>
+  <text class="small" x="105" y="244">-x preset, -t threads, -K query batch</text>
+  <text class="small" x="105" y="266">-I index split, -d dump index</text>
+  <text class="small" x="105" y="288">IS: --is-seq, --is-ref-bed, --is-config</text>
+
+  <rect class="box" x="455" y="160" width="315" height="130"/>
+  <text class="module" x="475" y="190">options.c</text>
+  <text class="text" x="475" y="218">Initialize/update parameters</text>
+  <text class="small" x="475" y="244">Index: k,w,H,bucket_bits,batch_size</text>
+  <text class="small" x="475" y="266">Map: seed,bw,max_gap,min_cnt</text>
+  <text class="small" x="475" y="288">DP: A/B/O/E,zdrop,min_dp_max</text>
+
+  <rect class="box" x="825" y="160" width="315" height="130"/>
+  <text class="module" x="845" y="190">index.c</text>
+  <text class="text" x="845" y="218">Build/load target index</text>
+  <text class="small" x="845" y="244">mm_idx_reader_read / mm_idx_gen</text>
+  <text class="small" x="845" y="266">-k kmer, -w minimizer window</text>
+  <text class="small" x="845" y="288">-H HPC, --bucket-bits, -I split</text>
+
+  <rect class="box" x="1195" y="160" width="315" height="130"/>
+  <text class="module" x="1215" y="190">index.c worker</text>
+  <text class="text" x="1215" y="218">Read, sketch, bucket, sort</text>
+  <text class="small" x="1215" y="244">packed reference sequence unless</text>
+  <text class="small" x="1215" y="266">--idx-no-seq / no CIGAR needed</text>
+  <text class="small" x="1215" y="288">hash minimizer occurrence table</text>
+
+  <path class="edge" d="M400 225 H455"/>
+  <path class="edge" d="M770 225 H825"/>
+  <path class="edge" d="M1140 225 H1195"/>
+
+  <rect class="band" x="50" y="370" width="1500" height="380"/>
+  <text class="bandText" x="70" y="396">Per-Query Mapping</text>
+
+  <rect class="box" x="85" y="430" width="315" height="130"/>
+  <text class="module" x="105" y="460">main.c annotations</text>
+  <text class="text" x="105" y="488">Attach optional index data</text>
+  <text class="small" x="105" y="514">ALT: --alt</text>
+  <text class="small" x="105" y="536">Splice: --junc-bed, --spsc, --pass1</text>
+  <text class="small" x="105" y="558">IS: BED intervals or sequence detection</text>
+
+  <rect class="box" x="455" y="430" width="315" height="130"/>
+  <text class="module" x="475" y="460">map.c pipeline</text>
+  <text class="text" x="475" y="488">Read query batches</text>
+  <text class="small" x="475" y="514">-K mini_batch_size, -t threads</text>
+  <text class="small" x="475" y="536">fragment / paired read grouping</text>
+  <text class="small" x="475" y="558">worker_for maps each fragment</text>
+
+  <rect class="box" x="825" y="430" width="315" height="130"/>
+  <text class="module" x="845" y="460">map.c collect_minimizers</text>
+  <text class="text" x="845" y="488">Sketch query minimizers</text>
+  <text class="small" x="845" y="514">uses index w,k,H</text>
+  <text class="small" x="845" y="536">SDUST: -T / sdust_thres</text>
+  <text class="small" x="845" y="558">query filter: q_occ_frac</text>
+
+  <rect class="box" x="1195" y="430" width="315" height="130"/>
+  <text class="module" x="1215" y="460">seed.c / map.c</text>
+  <text class="text" x="1215" y="488">Lookup and filter seed hits</text>
+  <text class="small" x="1215" y="514">-f mid_occ or mid_occ_frac</text>
+  <text class="small" x="1215" y="536">-U min,max occurrence</text>
+  <text class="small" x="1215" y="558">max_occ, max_max_occ, occ_dist</text>
+
+  <rect class="box" x="85" y="610" width="315" height="130"/>
+  <text class="module" x="105" y="640">lchain.c</text>
+  <text class="text" x="105" y="668">Chain anchors</text>
+  <text class="small" x="105" y="694">DP chain or --rmq chain</text>
+  <text class="small" x="105" y="716">-g max_gap, -r bw,bw_long</text>
+  <text class="small" x="105" y="738">-n min_cnt, -m min_chain_score</text>
+
+  <rect class="box" x="455" y="610" width="315" height="130"/>
+  <text class="module" x="475" y="640">map.c chain_post</text>
+  <text class="text" x="475" y="668">Regions and primary selection</text>
+  <text class="small" x="475" y="694">-p pri_ratio, -N best_n</text>
+  <text class="small" x="475" y="716">-M mask_level, --mask-len</text>
+  <text class="small" x="475" y="738">--alt-drop, MM_F_ALL_CHAINS</text>
+
+  <polygon class="decision" points="985,600 1145,675 985,750 825,675"/>
+  <text class="module" x="985" y="658" text-anchor="middle">Need CIGAR?</text>
+  <text class="small" x="985" y="684" text-anchor="middle">-a / -c / --cs</text>
+  <text class="small" x="985" y="706" text-anchor="middle">or IS options</text>
+
+  <rect class="box" x="1195" y="610" width="315" height="130"/>
+  <text class="module" x="1215" y="640">format.c</text>
+  <text class="text" x="1215" y="668">PAF without base CIGAR</text>
+  <text class="small" x="1215" y="694">MAPQ/tags from chaining</text>
+  <text class="small" x="1215" y="716">rl, cm, s1/s2, tp tags</text>
+  <text class="small" x="1215" y="738">default output path when no CIGAR</text>
+
+  <path class="edge" d="M1352 290 V340 H242 V430"/>
+  <path class="edge" d="M400 495 H455"/>
+  <path class="edge" d="M770 495 H825"/>
+  <path class="edge" d="M1140 495 H1195"/>
+  <path class="edge" d="M1352 560 V585 H242 V610"/>
+  <path class="edge" d="M400 675 H455"/>
+  <path class="edge" d="M770 675 H825"/>
+  <path class="edge" d="M1145 675 H1195"/>
+  <text class="label" x="1165" y="662">no</text>
+
+  <rect class="band" x="50" y="785" width="1500" height="390"/>
+  <text class="bandText" x="70" y="811">Alignment, Rescue, Pairing, Output</text>
+
+  <rect class="box" x="85" y="850" width="340" height="145"/>
+  <text class="module" x="105" y="880">align.c mm_align_skeleton</text>
+  <text class="text" x="105" y="908">Seed-guided DP alignment</text>
+  <text class="small" x="105" y="934">-A,-B,-O,-E scoring</text>
+  <text class="small" x="105" y="956">-z zdrop,zdrop_inv; -s min_dp_max</text>
+  <text class="small" x="105" y="978">--cap-sw-mem max_sw_mat; min_ksw_len</text>
+
+  <rect class="box" x="475" y="850" width="340" height="145"/>
+  <text class="module" x="495" y="880">align.c rescue/split</text>
+  <text class="text" x="495" y="908">Z-drop split and inversion rescue</text>
+  <text class="small" x="495" y="934">min_chain_score, max_gap</text>
+  <text class="small" x="495" y="956">min_dp_max, bw * 1.5</text>
+  <text class="small" x="495" y="978">splice uses -G,-u,-J,junc_bonus,noncan</text>
+
+  <rect class="box" x="865" y="850" width="340" height="145"/>
+  <text class="module" x="885" y="880">align.c IS-aware rescue</text>
+  <text class="text" x="885" y="908">Local positional IS CIGAR rewrite</text>
+  <text class="small" x="885" y="934">--is-window, --is-flank-len</text>
+  <text class="small" x="885" y="956">--is-flank-max-snp, --is-min-flank-id</text>
+  <text class="small" x="885" y="978">30kb edge cap; --del-report-mode</text>
+
+  <rect class="box" x="1255" y="850" width="255" height="145"/>
+  <text class="module" x="1275" y="880">hit.c / map.c</text>
+  <text class="text" x="1275" y="908">Final filters and MAPQ</text>
+  <text class="small" x="1275" y="934">min_dp_max, max_clip_ratio</text>
+  <text class="small" x="1275" y="956">rank_min_len/rank_frac</text>
+  <text class="small" x="1275" y="978">rep_len affects MAPQ</text>
+
+  <rect class="box" x="455" y="1045" width="315" height="110"/>
+  <text class="module" x="475" y="1075">pe.c</text>
+  <text class="text" x="475" y="1103">Optional pairing</text>
+  <text class="small" x="475" y="1129">-F max_frag_len, pe_ori, pe_bonus</text>
+  <text class="small" x="475" y="1151">--pairing strong|weak|no</text>
+
+  <rect class="box" x="825" y="1045" width="315" height="110"/>
+  <text class="module" x="845" y="1075">format.c</text>
+  <text class="text" x="845" y="1103">Write SAM/PAF</text>
+  <text class="small" x="845" y="1129">-a, -c, --cs, --ds, --MD, --eqx</text>
+  <text class="small" x="845" y="1151">-L long CIGAR, -Y soft clip, -R RG</text>
+
+  <path class="edge" d="M985 750 V805 H255 V850"/>
+  <text class="label" x="1002" y="793">yes</text>
+  <path class="edge" d="M425 922 H475"/>
+  <path class="edge" d="M815 922 H865"/>
+  <path class="edge" d="M1205 922 H1255"/>
+  <path class="edge" d="M1382 995 V1020 H612 V1045"/>
+  <path class="edge" d="M770 1100 H825"/>
+  <path class="edge2" d="M1510 675 H1540 V1210 H982 V1155"/>
+  <text class="label" x="1410" y="1218">PAF no-CIGAR path joins final output</text>
+
+  <rect x="50" y="1210" width="1500" height="70" fill="#ffffff" stroke="#c3cedd" stroke-width="1.5" rx="8"/>
+  <text class="small" x="70" y="1238">Primary code anchors: main.c, options.c, index.c, map.c, seed.c, lchain.c, align.c, pe.c, format.c.</text>
+  <text class="small" x="70" y="1262">Default values are initialized in options.c; presets in mm_set_opt override groups of parameters before explicit CLI options are applied.</text>
+</svg>
