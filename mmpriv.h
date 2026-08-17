@@ -20,12 +20,9 @@
 #define MM_SEED_IGNORE     (1ULL<<41)
 #define MM_SEED_TANDEM     (1ULL<<42)
 #define MM_SEED_SELF       (1ULL<<43)
-<<<<<<< HEAD
 #define MM_SEED_HIGH_OCC   (1ULL<<44)
 
 #define MM_IS_ANCHOR_MAX_OCC 10
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 
 #define MM_SEED_SEG_SHIFT  48
 #define MM_SEED_SEG_MASK   (0xffULL<<(MM_SEED_SEG_SHIFT))
@@ -33,7 +30,6 @@
 #define MM_JUNC_ANNO 0x1
 #define MM_JUNC_MISC 0x2
 
-<<<<<<< HEAD
 typedef struct mm_is_seq_s {
 	char *name;
 	int32_t len;
@@ -41,8 +37,6 @@ typedef struct mm_is_seq_s {
 } mm_is_seq_t;
 
 
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 #ifndef kroundup32
 #define kroundup32(x) (--(x), (x)|=(x)>>1, (x)|=(x)>>2, (x)|=(x)>>4, (x)|=(x)>>8, (x)|=(x)>>16, ++(x))
 #endif
@@ -111,7 +105,6 @@ int mm_idx_bed_read(mm_idx_t *mi, const char *fn, int read_junc);
 int mm_idx_jjump_read(mm_idx_t *mi, const char *fn, int flag, int min_sc);
 const mm_idx_jjump1_t *mm_idx_jump_get(const mm_idx_t *db, int32_t cid, int32_t st, int32_t en, int32_t *n);
 
-<<<<<<< HEAD
 int mm_idx_is_ref_overlap(const mm_idx_t *mi, int32_t rid, int32_t st, int32_t en, int32_t window, int32_t *is_st, int32_t *is_en);
 int mm_idx_is_ref_count_overlap(const mm_idx_t *mi, int32_t rid, int32_t st, int32_t en, int32_t window);
 int mm_idx_is_ref_count(const mm_idx_t *mi, int32_t rid);
@@ -122,8 +115,6 @@ int mm_idx_is_ref_fill_seqs(const mm_idx_t *mi, mm_mapopt_t *opt);
 int mm_max_spsc_bonus(const mm_mapopt_t *mo);
 int32_t mm_idx_spsc_read(mm_idx_t *idx, const char *fn, int32_t max_sc);
 
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 // chaining in lchain.c
 mm128_t *mg_lchain_dp(int max_dist_x, int max_dist_y, int bw, int max_skip, int max_iter, int min_cnt, int min_sc, float chn_pen_gap, float chn_pen_skip,
 					  int is_cdna, int n_segs, int64_t n, mm128_t *a, int *n_u_, uint64_t **_u, void *km);

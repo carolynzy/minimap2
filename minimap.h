@@ -96,10 +96,7 @@ typedef struct {
 	struct mm_idx_intv_s *I;   // intervals (hidden)
 	struct mm_idx_spsc_s *spsc;// splice score (hidden)
 	struct mm_idx_jjump_s *J;  // junctions to create jumps (hidden)
-<<<<<<< HEAD
 	struct mm_idx_intv_s *is_ref; // reference IS intervals for rescue (hidden)
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	void *km, *h;
 } mm_idx_t;
 
@@ -192,7 +189,6 @@ typedef struct {
 	int64_t max_sw_mat;
 	int64_t cap_kalloc;
 
-<<<<<<< HEAD
 	struct mm_is_seq_s *is_seq;
 	int32_t n_is_seq;
 	int32_t is_window, is_min_ins_len;
@@ -200,8 +196,6 @@ typedef struct {
 	int32_t del_report_mode;
 	float is_min_id, is_min_cov, is_min_flank_id;
 
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	const char *split_prefix;
 } mm_mapopt_t;
 
@@ -434,12 +428,9 @@ int mm_idx_alt_read(mm_idx_t *mi, const char *fn);
 int mm_idx_bed_read(mm_idx_t *mi, const char *fn, int read_junc);
 int mm_idx_bed_junc(const mm_idx_t *mi, int32_t ctg, int32_t st, int32_t en, uint8_t *s);
 
-<<<<<<< HEAD
 int mm_idx_is_ref_bed_read(mm_idx_t *mi, const char *fn);
 int mm_idx_is_ref_find(mm_idx_t *mi, const mm_mapopt_t *opt);
 int mm_idx_is_ref_fill_seqs(const mm_idx_t *mi, mm_mapopt_t *opt);
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 int mm_max_spsc_bonus(const mm_mapopt_t *mo);
 int32_t mm_idx_spsc_read(mm_idx_t *idx, const char *fn, int32_t max_sc);
 int32_t mm_idx_spsc_read2(mm_idx_t *idx, const char *fn, int32_t max_sc, float scale);

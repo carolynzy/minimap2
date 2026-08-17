@@ -25,7 +25,6 @@ static ko_longopt_t long_options[] = {
 	{ "bucket-bits",    ko_required_argument, 300 },
 	{ "mb-size",        ko_required_argument, 'K' },
 	{ "seed",           ko_required_argument, 302 },
-<<<<<<< HEAD
 	{ "is-seq",         ko_required_argument, 368 },
 	{ "is-ref-bed",     ko_required_argument, 369 },
 	{ "is-window",      ko_required_argument, 370 },
@@ -37,8 +36,6 @@ static ko_longopt_t long_options[] = {
 	{ "is-config",      ko_required_argument, 382 },
 	{ "is-flank-max-snp",ko_required_argument, 383 },
 	{ "del-report-mode",ko_required_argument, 384 },
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	{ "no-kalloc",      ko_no_argument,       303 },
 	{ "print-qname",    ko_no_argument,       304 },
 	{ "no-self",        ko_no_argument,       'D' },
@@ -130,7 +127,6 @@ static inline int64_t mm_parse_num(const char *str)
 	return mm_parse_num2(str, 0);
 }
 
-<<<<<<< HEAD
 static int parse_del_report_mode(const char *s)
 {
 	if (strcmp(s, "separate") == 0 || strcmp(s, "align") == 0) return 0;
@@ -139,8 +135,6 @@ static int parse_del_report_mode(const char *s)
 	return 0;
 }
 
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 static inline void yes_or_no(mm_mapopt_t *opt, int64_t flag, int long_idx, const char *arg, int yes_to_set)
 {
 	if (yes_to_set) {
@@ -154,7 +148,6 @@ static inline void yes_or_no(mm_mapopt_t *opt, int64_t flag, int long_idx, const
 	}
 }
 
-<<<<<<< HEAD
 static int read_is_seq_file(mm_mapopt_t *opt, const char *fn)
 {
 	mm_bseq_file_t *fp;
@@ -325,8 +318,6 @@ static int read_is_config(mm_mapopt_t *opt, const char *fn, char **fn_is_seq, ch
 	return 0;
 }
 
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 int main(int argc, char *argv[])
 {
 	const char *opt_str = "2aSDw:k:K:t:r:f:Vv:g:G:I:d:XT:s:x:Hcp:M:n:z:A:B:b:O:E:m:N:Qu:R:hF:LC:yYPo:e:U:J:j:";
@@ -335,11 +326,7 @@ int main(int argc, char *argv[])
 	mm_idxopt_t ipt;
 	int i, c, n_threads = 3, n_parts, old_best_n = -1;
 	float spsc_scale = 0.7f;
-<<<<<<< HEAD
 	char *fnw = 0, *rg = 0, *fn_bed_junc = 0, *fn_bed_jump = 0, *fn_bed_pass1 = 0, *fn_spsc = 0, *fn_is_seq = 0, *fn_is_ref_bed = 0, *s, *alt_list = 0;
-=======
-	char *fnw = 0, *rg = 0, *fn_bed_junc = 0, *fn_bed_jump = 0, *fn_bed_pass1 = 0, *fn_spsc = 0, *s, *alt_list = 0;
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	FILE *fp_help = stderr;
 	mm_idx_reader_t *idx_rdr;
 	mm_idx_t *mi;
@@ -464,7 +451,6 @@ int main(int argc, char *argv[])
 		else if (c == 361) opt.flag |= MM_F_OUT_JUNC | MM_F_CIGAR; // --write-junc
 		else if (c == 362) fn_bed_pass1 = o.arg; // --jump-pass1
 		else if (c == 501) mm_dbg_flag |= MM_DBG_SEED_FREQ; // --dbg-seed-occ
-<<<<<<< HEAD
 		else if (c == 368) fn_is_seq = o.arg; // --is-seq
 		else if (c == 369) fn_is_ref_bed = o.arg; // --is-ref-bed
 		else if (c == 370) opt.is_window = mm_parse_num(o.arg); // --is-window
@@ -481,8 +467,6 @@ int main(int argc, char *argv[])
 		}
 		else if (c == 383) opt.is_flank_max_snp = atoi(o.arg); // --is-flank-max-snp
 		else if (c == 384) opt.del_report_mode = parse_del_report_mode(o.arg); // --del-report-mode
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 		else if (c == 363) spsc_scale = atof(o.arg); // --spsc-scale
 		else if (c == 358 || c == 364) opt.junc_pen = atoi(o.arg); // --junc-pen or --spsc0
 		else if (c == 330) {
@@ -570,11 +554,8 @@ int main(int argc, char *argv[])
 			if (*s == ',') opt.e2 = strtol(s + 1, &s, 10);
 		}
 	}
-<<<<<<< HEAD
 	if (fn_is_seq || fn_is_ref_bed)
 		opt.flag |= MM_F_CIGAR;
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	if (!fnw && !(opt.flag&MM_F_CIGAR))
 		ipt.flag |= MM_I_NO_SEQ;
 	if (mm_check_opt(&ipt, &opt) < 0)
@@ -583,10 +564,6 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "[WARNING]\033[1;31m changed '-N 0' to '-N %d --secondary=no'.\033[0m\n", old_best_n);
 		opt.best_n = old_best_n, opt.flag |= MM_F_NO_PRINT_2ND;
 	}
-<<<<<<< HEAD
-=======
-
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	if (argc == o.ind || fp_help == stdout) {
 		fprintf(fp_help, "Usage: minimap2 [options] <target.fa>|<target.idx> [query.fa] [...]\n");
 		fprintf(fp_help, "Options:\n");
@@ -606,7 +583,6 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "    -m INT       minimal chaining score (matching bases minus log gap penalty) [%d]\n", opt.min_chain_score);
 //		fprintf(fp_help, "    -T INT       SDUST threshold; 0 to disable SDUST [%d]\n", opt.sdust_thres); // TODO: this option is never used; might be buggy
 		fprintf(fp_help, "    -X           skip self and dual mappings (for the all-vs-all mode)\n");
-<<<<<<< HEAD
 		fprintf(fp_help, "    --is-seq FILE          IS sequence FASTA for debug rescue candidate detection []\n");
 		fprintf(fp_help, "    --is-ref-bed FILE      reference IS BED intervals, 0-based half-open []\n");
 		fprintf(fp_help, "    --is-config FILE       JSON/key=value IS rescue config; JSON may list FASTA files []\n");
@@ -618,8 +594,6 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "    --is-flank-max-snp INT maximum SNPs allowed per rescue flank [%d]\n", opt.is_flank_max_snp);
 		fprintf(fp_help, "    --is-min-flank-id FLOAT minimum flank anchor identity [%g]\n", opt.is_min_flank_id);
 		fprintf(fp_help, "    --del-report-mode STR  report deletion-flanked query IS as separate or merged [separate]\n");
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 		fprintf(fp_help, "    -p FLOAT     min secondary-to-primary score ratio [%g]\n", opt.pri_ratio);
 		fprintf(fp_help, "    -N INT       retain at most INT secondary alignments [%d]\n", opt.best_n);
 		fprintf(fp_help, "  Alignment:\n");
@@ -660,13 +634,10 @@ int main(int argc, char *argv[])
 		fprintf(fp_help, "\nSee `man ./minimap2.1' for detailed description of these and other advanced command-line options.\n");
 		return fp_help == stdout? 0 : 1;
 	}
-<<<<<<< HEAD
 	if (fn_is_seq && read_is_seq(&opt, fn_is_seq) != 0) {
 		fprintf(stderr, "[ERROR] failed to load IS sequence file '%s'\n", fn_is_seq);
 		return 1;
 	}
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 
 	if ((opt.flag & MM_F_SR) && argc - o.ind > 3) {
 		fprintf(stderr, "[ERROR] incorrect input: in the sr mode, please specify no more than two query files.\n");
@@ -734,7 +705,6 @@ int main(int argc, char *argv[])
 			if (mi->spsc == 0 && mm_verbose >= 2)
 				fprintf(stderr, "[WARNING] failed to load the splice score file\n");
 		}
-<<<<<<< HEAD
 		if (fn_is_ref_bed) {
 			if (mm_idx_is_ref_bed_read(mi, fn_is_ref_bed) != 0 && mm_verbose >= 2)
 				fprintf(stderr, "[WARNING] failed to load reference IS BED file\n");
@@ -744,8 +714,6 @@ int main(int argc, char *argv[])
 			if (mm_idx_is_ref_find(mi, &opt) != 0 && mm_verbose >= 2)
 				fprintf(stderr, "[WARNING] failed to detect reference IS intervals from IS sequence file\n");
 		}
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 		if (alt_list) mm_idx_alt_read(mi, alt_list);
 		if (argc - (o.ind + 1) == 0) {
 			mm_idx_destroy(mi);
@@ -784,9 +752,6 @@ int main(int argc, char *argv[])
 			fprintf(stderr, " %s", argv[i]);
 		fprintf(stderr, "\n[M::%s] Real time: %.3f sec; CPU: %.3f sec; Peak RSS: %.3f GB\n", __func__, realtime() - mm_realtime0, cputime(), peakrss() / 1024.0 / 1024.0 / 1024.0);
 	}
-<<<<<<< HEAD
 	free_is_seq(&opt);
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	return 0;
 }

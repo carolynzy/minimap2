@@ -138,10 +138,7 @@ static mm128_t *collect_seed_hits_heap(void *km, const mm_mapopt_t *opt, int max
 			p->y |= (uint64_t)q->seg_id << MM_SEED_SEG_SHIFT;
 			if (q->is_tandem) p->y |= MM_SEED_TANDEM;
 			if (is_self) p->y |= MM_SEED_SELF;
-<<<<<<< HEAD
 			if (q->n > MM_IS_ANCHOR_MAX_OCC) p->y |= MM_SEED_HIGH_OCC;
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 		}
 		// update the heap
 		if ((uint32_t)heap->y < q->n - 1) {
@@ -200,10 +197,7 @@ static mm128_t *collect_seed_hits(void *km, const mm_mapopt_t *opt, int max_occ,
 			p->y |= (uint64_t)q->seg_id << MM_SEED_SEG_SHIFT;
 			if (q->is_tandem) p->y |= MM_SEED_TANDEM;
 			if (is_self) p->y |= MM_SEED_SELF;
-<<<<<<< HEAD
 			if (q->n > MM_IS_ANCHOR_MAX_OCC) p->y |= MM_SEED_HIGH_OCC;
-=======
->>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 		}
 	}
 	kfree(km, m);
