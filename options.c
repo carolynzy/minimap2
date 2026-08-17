@@ -64,6 +64,7 @@ void mm_mapopt_init(mm_mapopt_t *opt)
 	opt->pe_bonus = 33;
 
 	opt->jump_min_match = 3;
+<<<<<<< HEAD
 
 	opt->is_window = 2000;
 	opt->is_min_ins_len = 100;
@@ -73,6 +74,8 @@ void mm_mapopt_init(mm_mapopt_t *opt)
 	opt->is_flank_max_snp = 1;
 	opt->del_report_mode = 0;
 	opt->is_min_flank_id = 0.95f;
+=======
+>>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 }
 
 void mm_mapopt_update(mm_mapopt_t *opt, const mm_idx_t *mi)

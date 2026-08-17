@@ -7,8 +7,11 @@
 #endif
 #include <fcntl.h>
 #include <stdio.h>
+<<<<<<< HEAD
 #include <string.h>
 #include <ctype.h>
+=======
+>>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 #define __STDC_LIMIT_MACROS
 #include "kthread.h"
 #include "bseq.h"
@@ -84,11 +87,14 @@ void mm_idx_destroy(mm_idx_t *mi)
 			free(mi->J[i].a);
 		free(mi->J);
 	}
+<<<<<<< HEAD
 	if (mi->is_ref) {
 		for (i = 0; i < mi->n_seq; ++i)
 			free(mi->is_ref[i].a);
 		free(mi->is_ref);
 	}
+=======
+>>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
 	if (!mi->km) {
 		for (i = 0; i < mi->n_seq; ++i)
 			free(mi->seq[i].name);
@@ -1079,6 +1085,7 @@ int64_t mm_idx_spsc_get(const mm_idx_t *db, int32_t cid, int64_t st, int64_t en,
 	}
 	return en - st;
 }
+<<<<<<< HEAD
 
 
 /*************************************
@@ -1304,3 +1311,5 @@ int mm_idx_is_ref_fill_seqs(const mm_idx_t *mi, mm_mapopt_t *opt)
 		fprintf(stderr, "[M::%s] extracted %d IS sequence(s) from reference BED intervals\n", __func__, add_n);
 	return 0;
 }
+=======
+>>>>>>> 3c28777e7e2dcc90f825de1b9f17a89cca7d4452
